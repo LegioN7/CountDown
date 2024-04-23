@@ -6,6 +6,7 @@ import { Dayjs } from "dayjs";
 import { ReactNode, useState } from "react";
 import "./App.css";
 
+// Header Function
 function HeaderDisplay() {
   return (
     <header className="header">
@@ -14,6 +15,7 @@ function HeaderDisplay() {
   );
 }
 
+// Display of the countdown
 function CountdownDisplay({ countdown }: { countdown: number | null }) {
   return (
     <div className="countdown">
@@ -27,15 +29,21 @@ function CountdownDisplay({ countdown }: { countdown: number | null }) {
 }
 
 function App({ children }: { children: ReactNode }) {
+  // State for the start date
   const [startDate, setValue] = useState<Dayjs | null>(dayjs(dayjs().toDate()));
+
+  // State for the end date
   const [endDate, setEndDate] = useState<Dayjs | null>(dayjs("2024-06-19"));
 
+  // Function to calculate the countdown
   const calculateCountdown = (start: Dayjs | null, end: Dayjs | null) => {
     return end ? end.diff(start, "days") : null;
   };
 
+  // Countdown calculation
   const countdown = calculateCountdown(startDate, endDate);
 
+  // Start Date Picker
   const StartDatePicker = () => {
     return (
       <DatePicker
@@ -45,6 +53,7 @@ function App({ children }: { children: ReactNode }) {
     );
   };
 
+  // End Date Picker
   const EndDatePicker = () => {
     return (
       <DatePicker
@@ -54,6 +63,7 @@ function App({ children }: { children: ReactNode }) {
     );
   };
 
+  // Return the JSX
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <HeaderDisplay />
